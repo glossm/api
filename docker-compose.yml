@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  django:
+    container_name: glossm-api
+    env_file:
+      - environments/mysql.env
+      - environments/settings.env
+      - environments/secret.env
+    restart: always
+    build: ./django/
+    entrypoint: /code/docker-entrypoint.sh
+    volumes:
+      - ./django:/code
+      - static:/static
+    environment:
+      DATABASE_URL: 'mysql'
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: glossm-mysql
+    env_file:
+      - environments/mysql.env
+      - environments/secret.env
+    restart: always
+    image: mysql:8.0.2
+    volumes:
+      - mysql-persistent-volume:/var/lib/mysql
+    expose:
+      - "3306"
+
+  nginx:
+    container_name: glossm-nginx
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+      - static:/static
+    links:
+      - django:django
+
+volumes:
+  mysql-persistent-volume:
+  static:
