@@ -21,7 +21,7 @@ Following files are required to start build, but not included in the repository 
 ```
 127.0.0.1    api.glossm.com
 ```
-4. Access `http://api.glossm.com/manage`. Voila!
+4. Access `http://api.glossm.com/manage`. Voilà!
 
 ## Create an admin account
 You need an admin account to access the admin page. Follow the steps below to create one.
