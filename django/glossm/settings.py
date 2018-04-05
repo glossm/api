@@ -30,6 +30,9 @@ PREREQ_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_countries',
+    'sorl.thumbnail',
+    'sorl_thumbnail_serializer',
 ]
 
 PROJECT_APPS = [
@@ -68,6 +71,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'glossm.wsgi.application'
+
+# Django REST Framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
+    'JSON_UNDERSCOREIZE': {
+        'no_underscore_before_number': True,
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
