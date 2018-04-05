@@ -57,8 +57,8 @@ class Meaning(models.Model):
 
 
 class Record(models.Model):
-    language = models.ForeignKey(Language, models.PROTECT)
-    meaning = models.ForeignKey(Meaning, models.PROTECT)
+    language = models.ForeignKey(Language, models.PROTECT, related_name='records')
+    meaning = models.ForeignKey(Meaning, models.PROTECT, related_name='records')
     audio = models.URLField(blank=True, null=True)
     video = models.URLField(blank=True, null=True)
 
@@ -71,8 +71,8 @@ class Record(models.Model):
 
 class Submission(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
-    record = models.ForeignKey(Record, models.PROTECT)
-    submitter = models.ForeignKey(User, models.PROTECT)
+    record = models.ForeignKey(Record, models.PROTECT, related_name='submissions')
+    submitter = models.ForeignKey(User, models.PROTECT, related_name='submissions')
     answer = models.CharField(max_length=100)
 
     def __str__(self):
