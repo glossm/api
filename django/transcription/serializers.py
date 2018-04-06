@@ -38,8 +38,6 @@ class SubmissionSerializer(ModelSerializer):
 
     def create(self, validated_data):
         user = self.context['request'].user
-        if not user.is_authenticated:
-            raise NotAuthenticated
         submission = Submission.objects.create(
             submitter=user,
             record=validated_data['record'],
