@@ -33,6 +33,7 @@ PREREQ_APPS = [
     'django_countries',
     'sorl.thumbnail',
     'sorl_thumbnail_serializer',
+    'rest_auth',
 ]
 
 PROJECT_APPS = [
@@ -85,7 +86,22 @@ REST_FRAMEWORK = {
     'JSON_UNDERSCOREIZE': {
         'no_underscore_before_number': True,
     },
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
 }
+
+REST_AUTH_SERIALIZERS = {
+    # 'LOGIN_SERIALIZER': 'accounts.serializers.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer',
+}
+
+REST_USE_JWT = True
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
