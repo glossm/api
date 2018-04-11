@@ -21,5 +21,5 @@ class User(AbstractUser):
     def get_full_name(self):
         return self.name
 
-    def get_level(self):
+    def level(self):
         return int(self.exp / 100) + 1

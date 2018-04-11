@@ -1,6 +1,8 @@
 from django.contrib.humanize.templatetags.humanize import intword
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.db.models import Count
+from django.db.models.functions import Cast
 
 from accounts.models import User
 
@@ -68,6 +70,12 @@ class Record(models.Model):
     def __str__(self):
         return 'Record #{}'.format(self.id)
 
+    def top_answers(self, select=5):
+        total = self.submissions.count()
+        answers = self.submissions.values('answer')
+        answer_stats = answers.annotate(percent=Cast(Count('answer'), models.FloatField()) * 100 / total)
+        return answer_stats.order_by('-percent')[:select]
+
 
 class Submission(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -77,3 +85,7 @@ class Submission(models.Model):
 
     def __str__(self):
         return 'Submission #{}'.format(self.id)
+
+    def score(self):
+        # TODO: Calculate similarity-based scores
+        return len(self.answer)

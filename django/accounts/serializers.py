@@ -1,5 +1,4 @@
 from django_countries.serializers import CountryFieldMixin
-from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from sorl_thumbnail_serializer.fields import HyperlinkedSorlImageField
 
@@ -7,7 +6,6 @@ from .models import User
 
 
 class UserSerializer(CountryFieldMixin, ModelSerializer):
-    level = serializers.IntegerField(source='get_level')
     profile_thumbnail = HyperlinkedSorlImageField(
         '128x128',
         source='profile_image',
