@@ -97,7 +97,6 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    # 'LOGIN_SERIALIZER': 'accounts.serializers.LoginSerializer',
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserSerializer',
 }
 
