@@ -1,7 +1,13 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from .models import Language, Meaning, Record
+from .models import Topic, Language, Meaning, Record
+
+
+class TopicSerializer(ModelSerializer):
+    class Meta:
+        model = Topic
+        fields = ('id', 'name', 'level')
 
 
 class LanguageSerializer(ModelSerializer):

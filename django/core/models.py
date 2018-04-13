@@ -5,6 +5,29 @@ from django.db.models import Count, Model, PROTECT
 from django.db.models.functions import Cast
 
 
+class TopicSet(Model):
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        db_table = 'TopicSet'
+
+    def __str__(self):
+        return self.name
+
+
+class Topic(Model):
+    topic_set = models.ForeignKey(TopicSet, PROTECT, related_name='topics')
+    name = models.CharField(max_length=30)
+    level = models.PositiveIntegerField()
+
+    class Meta:
+        db_table = 'Topic'
+        unique_together = ('topic_set', 'name')
+
+    def __str__(self):
+        return '{} ({})'.format(self.name, self.topic_set.name)
+
+
 class Language(Model):
     EGID_SCALE = (
         ('0', 'International (0)'),
@@ -27,6 +50,7 @@ class Language(Model):
         max_length=3,
         validators=[MinLengthValidator(2)],
     )
+    topic_set = models.ForeignKey(TopicSet, PROTECT, related_name='languages')
     name = models.CharField(max_length=50)
     num_speakers = models.PositiveIntegerField('number of speakers')
     endangerment = models.CharField(max_length=2, choices=EGID_SCALE)
@@ -48,6 +72,7 @@ class Meaning(Model):
         max_length=5,
         validators=[MinLengthValidator(5)],
     )
+    topic = models.ForeignKey(Topic, PROTECT, related_name='meanings')
     in_en = models.CharField('in English', max_length=100)
     in_ko = models.CharField('in Korean', max_length=100)
     in_ru = models.CharField('in Russian', max_length=100)
