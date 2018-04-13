@@ -1,18 +1,7 @@
-from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView
 
-from .models import Language, Record, Submission
-from .serializers import LanguageSerializer, RecordSerializer, SubmissionSerializer
-
-
-class LanguageList(ListAPIView):
-    serializer_class = LanguageSerializer
-    queryset = Language.objects.all()
-
-
-class RecordDetail(RetrieveAPIView):
-    serializer_class = RecordSerializer
-    queryset = Record.objects.all()
-    lookup_field = 'id'
+from .models import Submission
+from .serializers import SubmissionSerializer
 
 
 class SubmissionCreate(CreateAPIView):
