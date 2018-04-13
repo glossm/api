@@ -43,7 +43,8 @@ class ProficiencySerializer(ModelSerializer):
 
     class Meta:
         model = Proficiency
-        fields = ('language',)
+        fields = ('language', 'exp')
+        read_only_fields = ('exp',)
 
     def create(self, validated_data):
         user = self.context['request'].user

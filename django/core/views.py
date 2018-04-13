@@ -1,8 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import NotFound
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.generics import ListAPIView
 
-from .models import Language, Record
+from .models import Language
 from .serializers import TopicSerializer, LanguageSerializer, RecordSerializer
 
 
