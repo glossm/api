@@ -1,7 +1,21 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from .models import Language, Meaning, Record
+from .models import TopicSet, Topic, Language, Meaning, Record
+
+
+@admin.register(TopicSet)
+class TopicSetAdmin(ModelAdmin):
+    list_display = ('name',)
+
+
+@admin.register(Topic)
+class TopicAdmin(ModelAdmin):
+    list_display = (
+        'name',
+        'level',
+        'topic_set',
+    )
 
 
 @admin.register(Language)
