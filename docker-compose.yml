@@ -37,12 +37,12 @@ services:
   nginx:
     container_name: glossm-nginx
     restart: always
-    build: ./nginx/
+    image: nginx:alpine
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
+      - ./nginx:/etc/nginx/
       - static:/static
     links:
       - django:django
