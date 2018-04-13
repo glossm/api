@@ -20,3 +20,17 @@ class Submission(Model):
     def score(self):
         # TODO: Calculate similarity-based scores
         return len(self.answer)
+
+
+class Proficiency(Model):
+    user = models.ForeignKey(User, PROTECT, related_name='proficiency')
+    language = models.ForeignKey(Language, PROTECT, related_name='proficiency')
+    exp = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        db_table = 'Proficiency'
+        unique_together = ('user', 'language')
+        verbose_name_plural = 'Proficiency'
+
+    def __str__(self):
+        return "{}'s proficiency in {}".format(self.user, self.language)
