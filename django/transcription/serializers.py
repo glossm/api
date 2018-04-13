@@ -1,8 +1,9 @@
+from django.db.utils import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer, ValidationError
 
-from core.models import Record
-from .models import Submission
+from core.models import Language, Record
+from .models import Submission, Proficiency
 
 
 class SubmissionSerializer(ModelSerializer):
@@ -35,3 +36,20 @@ class SubmissionSerializer(ModelSerializer):
 
     def get_top_answers(self, submission):
         return submission.record.top_answers()
+
+
+class ProficiencySerializer(ModelSerializer):
+    language = serializers.PrimaryKeyRelatedField(queryset=Language.objects.all())
+
+    class Meta:
+        model = Proficiency
+        fields = ('language',)
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        language = validated_data['language']
+        try:
+            proficiency = Proficiency.objects.create(user=user, language=language)
+            return proficiency
+        except IntegrityError:
+            raise ValidationError('You are already learning this language.')

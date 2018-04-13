@@ -11,9 +11,15 @@ class TopicSerializer(ModelSerializer):
 
 
 class LanguageSerializer(ModelSerializer):
+    learning = serializers.SerializerMethodField()
+
     class Meta:
         model = Language
         fields = '__all__'
+
+    def get_learning(self, language):
+        user = self.context['request'].user
+        return user.proficiency.filter(language=language).exists()
 
 
 class MeaningSerializer(ModelSerializer):
