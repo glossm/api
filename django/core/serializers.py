@@ -29,9 +29,20 @@ class MeaningSerializer(ModelSerializer):
 
 
 class RecordSerializer(ModelSerializer):
-    language = serializers.CharField(source='language.name')
     meaning = MeaningSerializer()
+    learned = serializers.SerializerMethodField()
 
     class Meta:
         model = Record
-        fields = '__all__'
+        fields = (
+            'id',
+            'meaning',
+            'audio',
+            'video',
+            'learned',
+        )
+
+    def get_learned(self, record):
+        user = self.context['request'].user
+        submissions = user.submissions.filter(record=record)
+        return submissions.exists()

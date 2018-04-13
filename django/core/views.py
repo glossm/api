@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from .models import Language, Record
@@ -19,7 +20,13 @@ class LanguageList(ListAPIView):
     queryset = Language.objects.all()
 
 
-class RecordDetail(RetrieveAPIView):
+class RecordList(ListAPIView):
     serializer_class = RecordSerializer
-    queryset = Record.objects.all()
-    lookup_field = 'id'
+
+    def get_queryset(self):
+        language = get_object_or_404(Language, code=self.kwargs['code'])
+        topic_id = self.kwargs['topic_id']
+        topic = language.topic_set.topics.filter(id=topic_id).first()
+        if topic is None:
+            raise NotFound
+        return language.records.filter(meaning__in=topic.meanings.all())
