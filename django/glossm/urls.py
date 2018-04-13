@@ -10,6 +10,7 @@ urlpatterns = [
     path('accounts/', include('rest_auth.urls')),
     path('accounts/token/refresh/', refresh_jwt_token),
     path('accounts/token/verify/', verify_jwt_token),
+    path('core/', include('core.urls')),
     path('transcription/', include('transcription.urls')),
 ]
 

@@ -18,6 +18,9 @@ class User(AbstractUser):
     is_expert = models.BooleanField(default=False)
     exp = models.PositiveIntegerField('EXP', default=0)
 
+    class Meta:
+        db_table = 'User'
+
     def get_full_name(self):
         return self.name
 
