@@ -15,9 +15,10 @@ Following files are required to start build, but not included in the repository 
 - `./scripts/shell_to_xxx.sh`: Connect to the selected container's shell.
 
 ### Steps
-1. Run `./scripts/deploy.sh`. This may require `sudo`.
-2. Type `docker container ls` to confirm that all three containers (`glossm-api`, `glossm-mysql`, and `glossm-nginx`) are running.
-3. To test locally, add the following line to `/etc/hosts` (for Windows, `C:\Windows\System32\Drivers\etc\hosts`).
+1. Create a MySQL volume by running `docker volume create glossm-mysql-volume`.
+2. Run `./scripts/deploy.sh`. This may require `sudo`.
+3. Type `docker container ls` to confirm that all three containers (`glossm-api`, `glossm-mysql`, and `glossm-nginx`) are running.
+4. To test locally, add the following line to `/etc/hosts` (for Windows, `C:\Windows\System32\Drivers\etc\hosts`).
 ```
 127.0.0.1    api.glossm.com
 ```

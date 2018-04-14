@@ -30,7 +30,7 @@ services:
     restart: always
     image: mysql:8.0.2
     volumes:
-      - mysql-persistent-volume:/var/lib/mysql
+      - glossm-mysql-volume:/var/lib/mysql
     expose:
       - "3306"
 
@@ -48,5 +48,6 @@ services:
       - django:django
 
 volumes:
-  mysql-persistent-volume:
+  glossm-mysql-volume:
+    external: true
   static:
