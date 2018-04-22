@@ -25,7 +25,7 @@ class Topic(Model):
         unique_together = ('topic_set', 'name')
 
     def __str__(self):
-        return '{} ({})'.format(self.name, self.topic_set.name)
+        return f'{self.name} ({self.topic_set.name})'
 
 
 class Language(Model):
@@ -84,7 +84,7 @@ class Meaning(Model):
         db_table = 'Meaning'
 
     def __str__(self):
-        return '{} ({})'.format(self.ask_code, self.in_en)
+        return f'{self.ask_code} ({self.in_en})'
 
 
 class Record(Model):
@@ -98,7 +98,7 @@ class Record(Model):
         unique_together = ('language', 'meaning')
 
     def __str__(self):
-        return 'Record #{}'.format(self.id)
+        return f'Record #{self.id}'
 
     def top_answers(self, select=5):
         total = self.submissions.count()
