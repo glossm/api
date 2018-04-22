@@ -22,15 +22,21 @@ class SubmissionSerializer(ModelSerializer):
     def create(self, validated_data):
         user = self.context['request'].user
         record = validated_data['record']
-        submission = Submission.objects.create(
+        proficiency = user.proficiency.filter(language=record.language).first()
+        if proficiency is None:
+            raise ValidationError('You are not learning this language.')
+
+        submission = Submission(
             submitter=user,
             record=record,
             answer=validated_data['answer'],
         )
-        proficiency = user.proficiency.filter(language=record.language).first()
-        if proficiency is None:
-            raise ValidationError('You are not learning this language.')
-        proficiency.exp += submission.score()
+        score = submission.score()
+        if score < 3:
+            # TODO: If the score is too low, reject or invalidate it
+            pass
+        submission.save()
+        proficiency.exp += score
         proficiency.save()
         return submission
 

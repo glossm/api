@@ -103,5 +103,5 @@ class Record(Model):
     def top_answers(self, select=5):
         total = self.submissions.count()
         answers = self.submissions.values('answer')
-        answer_stats = answers.annotate(percent=Cast(Count('answer'), models.FloatField()) * 100 / total)
-        return answer_stats.order_by('-percent')[:select]
+        answer_stats = answers.annotate(ratio=Cast(Count('answer'), models.FloatField()) / total)
+        return answer_stats.order_by('-ratio')[:select]
