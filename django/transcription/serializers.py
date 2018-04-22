@@ -34,7 +34,8 @@ class SubmissionSerializer(ModelSerializer):
         proficiency.save()
         return submission
 
-    def get_top_answers(self, submission):
+    @staticmethod
+    def get_top_answers(submission):
         return submission.record.top_answers()
 
 

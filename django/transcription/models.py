@@ -15,7 +15,7 @@ class Submission(Model):
         db_table = 'Submission'
 
     def __str__(self):
-        return 'Submission #{}'.format(self.id)
+        return f'Submission #{self.id}'
 
     def score(self):
         # TODO: Calculate similarity-based scores
@@ -33,4 +33,4 @@ class Proficiency(Model):
         verbose_name_plural = 'Proficiency'
 
     def __str__(self):
-        return "{}'s proficiency in {}".format(self.user, self.language)
+        return f"{self.user}'s proficiency in {self.language}"
