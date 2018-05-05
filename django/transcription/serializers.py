@@ -32,12 +32,12 @@ class SubmissionSerializer(ModelSerializer):
             answer=validated_data['answer'],
         )
         score = submission.score()
-        if score < 3:
-            # TODO: If the score is too low, reject or invalidate it
-            pass
+        if score < 4:
+            submission.is_valid = False
+        else:
+            proficiency.exp += score
+            proficiency.save()
         submission.save()
-        proficiency.exp += score
-        proficiency.save()
         return submission
 
     @staticmethod

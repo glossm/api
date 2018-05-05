@@ -25,6 +25,7 @@ class Submission(Model):
     record = models.ForeignKey(Record, PROTECT, related_name='submissions')
     submitter = models.ForeignKey(User, PROTECT, related_name='submissions')
     answer = models.CharField(max_length=100)
+    is_valid = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'Submission'
