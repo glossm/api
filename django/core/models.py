@@ -101,7 +101,8 @@ class Record(Model):
         return f'Record #{self.id}'
 
     def top_answers(self, select=5):
-        total = self.submissions.count()
-        answers = self.submissions.values('answer')
+        valid_submissions = self.submissions.filter(is_valid=True)
+        total = valid_submissions.count()
+        answers = valid_submissions.values('answer')
         answer_stats = answers.annotate(ratio=Cast(Count('answer'), models.FloatField()) / total)
         return answer_stats.order_by('-ratio')[:select]
