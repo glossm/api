@@ -34,6 +34,7 @@ PREREQ_APPS = [
     'sorl.thumbnail',
     'sorl_thumbnail_serializer',
     'rest_auth',
+    'corsheaders',
 ]
 
 PROJECT_APPS = [
@@ -45,6 +46,7 @@ PROJECT_APPS = [
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,6 +75,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'glossm.wsgi.application'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Django REST Framework
 

@@ -10,3 +10,4 @@ sorl-thumbnail==12.4.1
 sorl-thumbnail-serializer-field==0.2.1
 django-rest-auth==0.9.3
 djangorestframework-jwt==1.11.0
+django-cors-headers==2.2.0
