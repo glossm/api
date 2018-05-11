@@ -33,6 +33,15 @@ $ ./scripts/shell_to_django.sh
 (venv) /code # python manage.py createsuperuser
 ```
 
+## Install packages
+When new Python packages are added to dependencies, you should install them.
+```
+$ ./scripts/shell_to_django.sh
+/code # source ../venv/bin/activate
+(venv) /code # pip install -r requirements.txt
+```
+This is automatically done during the initial build.
+
 ## Debugging
 If something goes wrong, check container logs by typing `docker logs CONTAINER_NAME`. Container names are like `glossm-xxx`.
 
