@@ -27,13 +27,19 @@ PREREQ_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_countries',
     'sorl.thumbnail',
     'sorl_thumbnail_serializer',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'rest_auth',
+    'rest_auth.registration',
     'corsheaders',
 ]
 
@@ -44,6 +50,8 @@ PROJECT_APPS = [
 ]
 
 INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -106,6 +114,8 @@ REST_AUTH_SERIALIZERS = {
 }
 
 REST_USE_JWT = True
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
