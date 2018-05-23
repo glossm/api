@@ -8,6 +8,7 @@ from rest_framework_jwt.views import refresh_jwt_token, verify_jwt_token
 urlpatterns = [
     path('manage/', admin.site.urls),
     path('accounts/', include('rest_auth.urls')),
+    path('accounts/registration/', include('rest_auth.registration.urls')),
     path('accounts/token/refresh/', refresh_jwt_token),
     path('accounts/token/verify/', verify_jwt_token),
     path('core/', include('core.urls')),
