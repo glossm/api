@@ -8,7 +8,7 @@ from .models import User
 
 class UserSerializer(CountryFieldMixin, ModelSerializer):
     profile_thumbnail = HyperlinkedSorlImageField(
-        '128x128',
+        '512x512',
         source='profile_image',
         options={'crop': 'center'},
         read_only=True,
