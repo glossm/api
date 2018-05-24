@@ -47,11 +47,12 @@ class SubmissionSerializer(ModelSerializer):
 
 class ProficiencySerializer(ModelSerializer):
     language = serializers.PrimaryKeyRelatedField(queryset=Language.objects.all())
+    level = serializers.SerializerMethodField()
+    percent = serializers.SerializerMethodField()
 
     class Meta:
         model = Proficiency
-        fields = ('language', 'exp')
-        read_only_fields = ('exp',)
+        fields = ('language', 'level', 'percent')
 
     def create(self, validated_data):
         user = self.context['request'].user
@@ -61,3 +62,11 @@ class ProficiencySerializer(ModelSerializer):
             return proficiency
         except IntegrityError:
             raise ValidationError('You are already learning this language.')
+
+    @staticmethod
+    def get_level(proficiency):
+        return proficiency.exp // 100 + 1
+
+    @staticmethod
+    def get_percent(proficiency):
+        return proficiency.exp % 100
