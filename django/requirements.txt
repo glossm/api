@@ -11,3 +11,5 @@ sorl-thumbnail-serializer-field==0.2.1
 django-rest-auth[with_social]==0.9.3
 djangorestframework-jwt==1.11.0
 django-cors-headers==2.2.0
+boto3==1.7.26
+django_storages==1.6.6
