@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from django.utils.translation import ugettext_lazy as _
@@ -114,6 +115,10 @@ REST_AUTH_SERIALIZERS = {
 }
 
 REST_USE_JWT = True
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1)
+}
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
