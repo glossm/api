@@ -5,9 +5,18 @@ from .models import Topic, Language, Meaning, Record
 
 
 class TopicSerializer(ModelSerializer):
+    progress = serializers.SerializerMethodField()
+
     class Meta:
         model = Topic
-        fields = ('id', 'name', 'level')
+        fields = ('id', 'name', 'level', 'progress')
+
+    def get_progress(self, topic):
+        submissions = self.context['request'].user.submissions
+        language = Language.objects.get(id=self.context['language_id'])
+        records = language.records.filter(meaning__in=topic.meanings.all())
+        learned_status = [submissions.filter(record=record).exists() for record in records]
+        return {'current': sum(learned_status), 'total': records.count()}
 
 
 class LanguageSerializer(ModelSerializer):

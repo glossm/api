@@ -14,6 +14,9 @@ class TopicList(ListAPIView):
         topics = language.topic_set.topics
         return topics.order_by('level', 'name')
 
+    def get_serializer_context(self):
+        return {'request': self.request, 'language_id': self.kwargs['id']}
+
 
 class LanguageList(ListAPIView):
     serializer_class = LanguageSerializer
