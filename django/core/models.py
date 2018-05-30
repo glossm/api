@@ -75,18 +75,18 @@ class Meaning(Model):
         validators=[MinLengthValidator(5)],
     )
     topic = models.ForeignKey(Topic, PROTECT, related_name='meanings')
-    in_en = models.CharField('in English', max_length=100)
-    in_ko = models.CharField('in Korean', max_length=100)
-    in_ru = models.CharField('in Russian', max_length=100)
-    in_zh = models.CharField('in Chinese', max_length=100)
-    in_mn = models.CharField('in Mongolian', max_length=100)
+    en = models.CharField('in English', max_length=100)
+    ko = models.CharField('in Korean', max_length=100)
+    ru = models.CharField('in Russian', max_length=100)
+    zh = models.CharField('in Chinese', max_length=100)
+    mn = models.CharField('in Mongolian', max_length=100)
     note = models.CharField(max_length=200, blank=True)
 
     class Meta:
         db_table = 'Meaning'
 
     def __str__(self):
-        return f'{self.ask_code} ({self.in_en})'
+        return f'{self.ask_code} ({self.en})'
 
 
 class Record(Model):

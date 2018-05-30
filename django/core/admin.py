@@ -31,11 +31,11 @@ class LanguageAdmin(ModelAdmin):
 class MeaningAdmin(ModelAdmin):
     list_display = (
         'ask_code',
-        'in_en',
-        'in_ko',
-        'in_ru',
-        'in_zh',
-        'in_mn',
+        'en',
+        'ko',
+        'ru',
+        'zh',
+        'mn',
         'note',
     )
 
