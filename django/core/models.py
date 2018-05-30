@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import Count, Model, PROTECT
 from django.db.models.functions import Cast
 
-from glossm.utils import get_renamed_path
+from glossm.utils import RenamedPath
 
 
 class TopicSet(Model):
@@ -92,8 +92,8 @@ class Meaning(Model):
 class Record(Model):
     language = models.ForeignKey(Language, PROTECT, related_name='records')
     meaning = models.ForeignKey(Meaning, PROTECT, related_name='records')
-    audio = models.FileField(upload_to=get_renamed_path('audio', 'record'), blank=True, null=True)
-    video = models.FileField(upload_to=get_renamed_path('video', 'record'), blank=True, null=True)
+    audio = models.FileField(upload_to=RenamedPath('audio', 'record'), blank=True, null=True)
+    video = models.FileField(upload_to=RenamedPath('video', 'record'), blank=True, null=True)
 
     class Meta:
         db_table = 'Record'
