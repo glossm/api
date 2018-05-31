@@ -43,6 +43,7 @@ PREREQ_APPS = [
     'rest_auth.registration',
     'corsheaders',
     'storages',
+    'import_export',
 ]
 
 PROJECT_APPS = [
