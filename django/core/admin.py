@@ -17,13 +17,29 @@ class CustomIEModelAdmin(ImportExportModelAdmin):
         return [f for f in formats if f().can_export()]
 
 
+class TopicSetResource(ModelResource):
+    class Meta:
+        model = TopicSet
+        exclude = ('id',)
+        import_id_fields = ('name',)
+
+
 @admin.register(TopicSet)
-class TopicSetAdmin(ModelAdmin):
+class TopicSetAdmin(CustomIEModelAdmin):
+    resource_class = TopicSetResource
     list_display = ('name',)
 
 
+class TopicResource(ModelResource):
+    class Meta:
+        model = Topic
+        exclude = ('id',)
+        import_id_fields = ('name',)
+
+
 @admin.register(Topic)
-class TopicAdmin(ModelAdmin):
+class TopicAdmin(CustomIEModelAdmin):
+    resource_class = TopicResource
     list_display = (
         'name',
         'level',
@@ -31,8 +47,16 @@ class TopicAdmin(ModelAdmin):
     )
 
 
+class LanguageResource(ModelResource):
+    class Meta:
+        model = Language
+        exclude = ('id',)
+        import_id_fields = ('code',)
+
+
 @admin.register(Language)
-class LanguageAdmin(ModelAdmin):
+class LanguageAdmin(CustomIEModelAdmin):
+    resource_class = LanguageResource
     list_display = (
         'name',
         'code',
