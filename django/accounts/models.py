@@ -23,5 +23,13 @@ class User(AbstractUser):
     class Meta:
         db_table = 'User'
 
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            profile_image = self.profile_image
+            self.profile_image = None
+            super().save(*args, **kwargs)
+            self.profile_image = profile_image
+        super().save(*args, **kwargs)
+
     def get_full_name(self):
         return self.name

@@ -102,6 +102,15 @@ class Record(Model):
     def __str__(self):
         return f'Record #{self.id}'
 
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            audio, video = self.audio, self.video
+            self.audio = None
+            self.video = None
+            super().save(*args, **kwargs)
+            self.audio, self.video = audio, video
+        super().save(*args, **kwargs)
+
     def top_answers(self, select=5):
         valid_submissions = self.submissions.filter(is_valid=True)
         total = valid_submissions.count()
