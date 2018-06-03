@@ -49,8 +49,8 @@ class Language(Model):
 
     code = models.CharField(
         unique=True,
-        max_length=3,
-        validators=[MinLengthValidator(2)],
+        max_length=7,
+        validators=[MinLengthValidator(3)],
     )
     topic_set = models.ForeignKey(TopicSet, PROTECT, related_name='languages')
     name = models.CharField(max_length=50)
