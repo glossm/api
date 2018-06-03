@@ -44,7 +44,7 @@ class Language(Model):
         ('8a', 'Moribund (8a)'),
         ('8b', 'Nearly Extinct (8b)'),
         ('9', 'Dormant (9)'),
-        ('10', 'Extinct (10)'),
+        ('x10', 'Extinct (10)'),
     )
 
     code = models.CharField(
