@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_auto_20180413_0808'),
+        ('core', '0001_squashed_0005_auto_20180604_0804'),
         ('transcription', '0004_auto_20180413_1155'),
         ('accounts', '0004_remove_user_exp'),
     ]

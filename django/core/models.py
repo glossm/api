@@ -8,6 +8,7 @@ from glossm.utils import RenamedPath
 
 
 class TopicSet(Model):
+    code = models.CharField(max_length=3, unique=True)
     name = models.CharField(max_length=30)
 
     class Meta:
@@ -19,6 +20,7 @@ class TopicSet(Model):
 
 class Topic(Model):
     topic_set = models.ForeignKey(TopicSet, PROTECT, related_name='topics')
+    code = models.CharField(max_length=3, unique=True)
     name = models.CharField(max_length=30)
     level = models.PositiveIntegerField()
 
@@ -54,8 +56,8 @@ class Language(Model):
     )
     topic_set = models.ForeignKey(TopicSet, PROTECT, related_name='languages')
     name = models.CharField(max_length=50)
-    num_speakers = models.PositiveIntegerField('number of speakers')
-    endangerment = models.CharField(max_length=2, choices=EGID_SCALE)
+    num_speakers = models.PositiveIntegerField('number of speakers', blank=True, null=True)
+    endangerment = models.CharField(max_length=2, choices=EGID_SCALE, blank=True, null=True)
 
     class Meta:
         db_table = 'Language'

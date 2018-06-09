@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 from import_export.admin import ImportExportModelAdmin
+from import_export.fields import Field
 from import_export.formats import base_formats
 from import_export.resources import ModelResource
+from import_export.widgets import ForeignKeyWidget
 
 from .models import TopicSet, Topic, Language, Meaning, Record
 
@@ -21,7 +23,7 @@ class TopicSetResource(ModelResource):
     class Meta:
         model = TopicSet
         exclude = ('id',)
-        import_id_fields = ('name',)
+        import_id_fields = ('code',)
 
 
 @admin.register(TopicSet)
@@ -31,10 +33,16 @@ class TopicSetAdmin(CustomIEModelAdmin):
 
 
 class TopicResource(ModelResource):
+    topic_set = Field(
+        column_name='topic_set',
+        attribute='topic_set',
+        widget=ForeignKeyWidget(TopicSet, 'code'),
+    )
+
     class Meta:
         model = Topic
         exclude = ('id',)
-        import_id_fields = ('name',)
+        import_id_fields = ('code',)
 
 
 @admin.register(Topic)
@@ -48,6 +56,12 @@ class TopicAdmin(CustomIEModelAdmin):
 
 
 class LanguageResource(ModelResource):
+    topic_set = Field(
+        column_name='topic_set',
+        attribute='topic_set',
+        widget=ForeignKeyWidget(TopicSet, 'code'),
+    )
+
     class Meta:
         model = Language
         exclude = ('id',)
@@ -65,6 +79,12 @@ class LanguageAdmin(CustomIEModelAdmin):
 
 
 class MeaningResource(ModelResource):
+    topic = Field(
+        column_name='topic',
+        attribute='topic',
+        widget=ForeignKeyWidget(Topic, 'code'),
+    )
+
     class Meta:
         model = Meaning
         exclude = ('id',)
