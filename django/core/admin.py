@@ -85,8 +85,8 @@ class MeaningAdmin(CustomIEModelAdmin):
 
 
 @admin.register(Informant)
-class LanguageAdmin(CustomIEModelAdmin):
-    resource_class = LanguageResource
+class InformantAdmin(CustomIEModelAdmin):
+    resource_class = InformantResource
     list_display = (
         'code',
         'language',
