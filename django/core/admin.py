@@ -4,8 +4,7 @@ from import_export.admin import ImportExportModelAdmin
 from import_export.formats import base_formats
 from import_export.resources import ModelResource
 
-from .models import TopicSet, Topic, Language, Meaning, Record
-
+from .models import TopicSet, Topic, Language, Meaning, Informant, Record
 
 class CustomIEModelAdmin(ImportExportModelAdmin):
     def get_import_formats(self):
@@ -82,6 +81,18 @@ class MeaningAdmin(CustomIEModelAdmin):
         'zh',
         'mn',
         'note',
+    )
+
+
+@admin.register(Informant)
+class LanguageAdmin(CustomIEModelAdmin):
+    resource_class = LanguageResource
+    list_display = (
+        'code',
+        'language',
+        'full_name',
+        'gender',
+        'date_of_birth',
     )
 
 
