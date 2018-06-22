@@ -119,7 +119,6 @@ class Informant(Model):
 class Record(Model):
     language = models.ForeignKey(Language, PROTECT, related_name='records')
     meaning = models.ForeignKey(Meaning, PROTECT, related_name='records')
-    informant = models.ForeignKey(Informant, PROTECT, related_name='records')
     audio = models.FileField(upload_to=RenamedPath('audio', 'record'), blank=True, null=True)
     video = models.FileField(upload_to=RenamedPath('video', 'record'), blank=True, null=True)
     footnote = models.CharField(max_length=200, blank=True)
