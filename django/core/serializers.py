@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from .models import Topic, Language, Meaning, Record
+from .models import Topic, Language, Meaning, Informant, Record
 
 
 class TopicSerializer(ModelSerializer):
@@ -34,6 +34,12 @@ class LanguageSerializer(ModelSerializer):
 class MeaningSerializer(ModelSerializer):
     class Meta:
         model = Meaning
+        fields = '__all__'
+
+
+class InformantSerializer(ModelSerializer):
+    class Meta:
+        model = Informant
         fields = '__all__'
 
 
