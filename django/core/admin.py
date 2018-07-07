@@ -6,7 +6,7 @@ from import_export.formats import base_formats
 from import_export.resources import ModelResource
 from import_export.widgets import ForeignKeyWidget
 
-from .models import TopicSet, Topic, Language, Meaning, Record
+from .models import TopicSet, Topic, Language, Meaning, Informant, Record
 
 
 class CustomIEModelAdmin(ImportExportModelAdmin):
@@ -89,6 +89,17 @@ class MeaningResource(ModelResource):
         model = Meaning
         exclude = ('id',)
         import_id_fields = ('ask_code',)
+
+
+@admin.register(Informant)
+class Informantdmin(CustomIEModelAdmin):
+    list_display = (
+        'code',
+        'language',
+        'full_name',
+        'gender',
+        'date_of_birth',
+    )
 
 
 @admin.register(Meaning)

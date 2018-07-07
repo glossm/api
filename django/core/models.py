@@ -57,7 +57,7 @@ class Language(Model):
     topic_set = models.ForeignKey(TopicSet, PROTECT, related_name='languages')
     name = models.CharField(max_length=50)
     num_speakers = models.PositiveIntegerField('number of speakers', blank=True, null=True)
-    endangerment = models.CharField(max_length=2, choices=EGID_SCALE, blank=True, null=True)
+    endangerment = models.CharField(max_length=3, choices=EGID_SCALE, blank=True, null=True)
 
     class Meta:
         db_table = 'Language'
@@ -91,16 +91,43 @@ class Meaning(Model):
         return f'{self.ask_code} ({self.en})'
 
 
+class Informant(Model):
+    Gender = (
+        ('F', 'female'),
+        ('M', 'male'),
+        ('X', 'others/unknown'),
+    )
+
+    code = models.CharField(
+        'Informant ID',
+        unique=True,
+        max_length=5,
+        validators=[MinLengthValidator(5)],
+    )
+    language = models.ForeignKey(Language, PROTECT, related_name='informants')
+    full_name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=3, choices=Gender)
+    date_of_birth = models.DateField(auto_now=False, auto_now_add=False, blank=True)
+    geo_location = models.CharField(max_length=50, blank=True)
+    picture_path = models.FileField(upload_to=RenamedPath('picture', 'informant'), blank=True, null=True)
+
+    class Meta:
+        db_table = 'Informant'
+
+    def __str__(self):
+        return f'{self.code} ({self.full_name})'
+
+
 class Record(Model):
     language = models.ForeignKey(Language, PROTECT, related_name='records')
     meaning = models.ForeignKey(Meaning, PROTECT, related_name='records')
     audio = models.FileField(upload_to=RenamedPath('audio', 'record'), blank=True, null=True)
     video = models.FileField(upload_to=RenamedPath('video', 'record'), blank=True, null=True)
     wave_image = models.FileField(upload_to=RenamedPath('wave', 'record'), blank=True, null=True)
+    footnote = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         db_table = 'Record'
-        unique_together = ('language', 'meaning')
 
     def __str__(self):
         return f'Record #{self.id}'
