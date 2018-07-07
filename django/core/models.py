@@ -123,7 +123,8 @@ class Record(Model):
     meaning = models.ForeignKey(Meaning, PROTECT, related_name='records')
     audio = models.FileField(upload_to=RenamedPath('audio', 'record'), blank=True, null=True)
     video = models.FileField(upload_to=RenamedPath('video', 'record'), blank=True, null=True)
-    footnote = models.CharField(max_length=200, blank=True)
+    wave_image = models.FileField(upload_to=RenamedPath('wave', 'record'), blank=True, null=True)
+    footnote = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         db_table = 'Record'
