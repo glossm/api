@@ -18,6 +18,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     'api.glossm.com',
+    '13.124.172.50'
 ]
 
 # Application definition
